@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Samruddhi — Websites for Hindu Temples</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --maroon:#8A2020;
+    --maroon-deep:#6E1717;
+    --gold:#C8952E;
+    --gold-dk:#A8781F;
+    --gold-lt:#E4C87E;
+    --cream:#FFFDF8;
+    --cream-2:#FBF4E7;
+    --cream-3:#F6ECD8;
+    --ink:#2A2320;
+    --ink-soft:#736A61;
+    --line:#EBDFC9;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;line-height:1.1;letter-spacing:-0.02em}
+  a{text-decoration:none;color:inherit}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .75s cubic-bezier(.2,.7,.2,1),transform .75s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
+
+  .motif{display:flex;align-items:center;justify-content:center;gap:14px}
+  .motif .l{height:1px;width:52px;background:linear-gradient(90deg,transparent,var(--gold))}
+  .motif .l.r{background:linear-gradient(90deg,var(--gold),transparent)}
+  .motif .dot{color:var(--gold);font-size:14px}
+
+  /* header */
+  header{position:fixed;top:0;left:0;right:0;z-index:60;transition:background .35s,box-shadow .35s,padding .35s;padding:18px 0}
+  header.scrolled{background:rgba(255,253,248,.92);box-shadow:0 4px 24px rgba(138,32,32,.08);padding:12px 0;backdrop-filter:blur(10px)}
+  .nav{max-width:1200px;margin:0 auto;padding:0 26px;display:flex;align-items:center;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand .mark{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 34% 30%,var(--gold-lt),var(--gold));display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:700;color:var(--maroon-deep);font-size:20px}
+  .brand .name{font-family:'Fraunces',serif;font-weight:600;font-size:17px;color:var(--maroon);line-height:1}
+  .brand .sub{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dk);margin-top:3px}
+  .navlinks{display:none;gap:32px}
+  .navlinks a{color:var(--ink);font-size:14px;font-weight:500;transition:color .2s;position:relative;opacity:.85}
+  .navlinks a::after{content:"";position:absolute;left:0;bottom:-5px;width:0;height:1.5px;background:var(--gold);transition:width .25s}
+  .navlinks a:hover{opacity:1;color:var(--maroon)}.navlinks a:hover::after{width:100%}
+  .navcta{background:var(--maroon);color:#fff;padding:10px 22px;border-radius:999px;font-size:13.5px;font-weight:600;transition:background .25s,transform .2s}
+  .navcta:hover{background:var(--maroon-deep);transform:translateY(-2px)}
+  @media(min-width:940px){.navlinks{display:flex}}
+
+  /* hero — light */
+  .hero{position:relative;background:var(--cream);overflow:hidden;padding:150px 0 90px}
+  .hero::before{content:"";position:absolute;top:-30%;right:-10%;width:720px;height:720px;background:radial-gradient(circle,rgba(200,149,46,.14),transparent 62%);z-index:0}
+  .hero::after{content:"";position:absolute;bottom:-40%;left:-15%;width:680px;height:680px;background:radial-gradient(circle,rgba(138,32,32,.07),transparent 62%);z-index:0}
+  .hero-inner{position:relative;z-index:2;max-width:960px;margin:0 auto;padding:0 26px;text-align:center}
+  .hero .kicker{display:inline-block;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-dk);font-weight:600;background:var(--cream-3);padding:8px 18px;border-radius:999px;margin-bottom:26px}
+  .hero h1{font-size:clamp(40px,7.5vw,74px);color:var(--maroon);margin-bottom:24px}
+  .hero h1 .it{font-style:italic;font-weight:400;color:var(--gold-dk)}
+  .hero .lead{max-width:600px;margin:0 auto 36px;font-size:18px;color:var(--ink-soft);line-height:1.7}
+  .hero .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:42px}
+  .btn-primary{background:var(--maroon);color:#fff;padding:16px 34px;border-radius:999px;font-weight:600;font-size:15px;transition:transform .22s,box-shadow .22s;box-shadow:0 10px 28px rgba(138,32,32,.22)}
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 16px 38px rgba(138,32,32,.32)}
+  .btn-ghost{background:#fff;border:1.5px solid var(--line);color:var(--maroon);padding:16px 30px;border-radius:999px;font-weight:600;font-size:15px;transition:border-color .22s,transform .2s}
+  .btn-ghost:hover{border-color:var(--gold);transform:translateY(-2px)}
+  .hero .regions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .hero .regions span{font-size:12.5px;color:var(--maroon);letter-spacing:.04em;background:#fff;border:1px solid var(--line);padding:8px 18px;border-radius:999px;display:inline-flex;align-items:center;gap:8px}
+  .hero .regions i{width:6px;height:6px;border-radius:50%;background:var(--gold);display:inline-block}
+
+  /* stats strip */
+  .stats{background:var(--maroon);color:#fff}
+  .stats-inner{max-width:1100px;margin:0 auto;padding:44px 26px;display:grid;grid-template-columns:repeat(2,1fr);gap:30px 20px;text-align:center}
+  @media(min-width:760px){.stats-inner{grid-template-columns:repeat(4,1fr)}}
+  .stat .n{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(34px,5vw,46px);color:var(--gold-lt);line-height:1}
+  .stat .lbl{font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.72);margin-top:8px}
+
+  /* section shell */
+  section{max-width:1200px;margin:0 auto;padding:96px 26px}
+  .eyebrow{text-align:center;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-dk);font-weight:600;margin:14px 0 12px}
+  .sec-title{text-align:center;font-size:clamp(30px,4.8vw,46px);color:var(--maroon);margin-bottom:14px}
+  .sec-title .it{font-style:italic;font-weight:400}
+  .sec-note{text-align:center;color:var(--ink-soft);max-width:580px;margin:0 auto 54px;font-size:16px}
+
+  /* build grid */
+  .grid3{display:grid;grid-template-columns:1fr;gap:20px}
+  @media(min-width:640px){.grid3{grid-template-columns:repeat(2,1fr)}}
+  @media(min-width:980px){.grid3{grid-template-columns:repeat(3,1fr)}}
+  .feature{background:#fff;border:1px solid var(--line);border-radius:18px;padding:32px 28px;transition:transform .26s,box-shadow .26s,border-color .26s}
+  .feature:hover{transform:translateY(-5px);box-shadow:0 20px 44px rgba(138,32,32,.09);border-color:var(--gold-lt)}
+  .feature .ico{width:54px;height:54px;border-radius:14px;background:var(--cream-2);color:var(--maroon);display:grid;place-items:center;margin-bottom:18px;transition:background .3s,transform .3s}
+  .feature:hover .ico{background:var(--maroon);color:var(--gold-lt);transform:rotate(-5deg)}
+  .feature .ico svg{width:25px;height:25px}
+  .feature h3{font-size:21px;color:var(--maroon);margin-bottom:8px}
+  .feature p{font-size:14.5px;color:var(--ink-soft)}
+
+  /* product showcase */
+  .showcase{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .showcase-inner{max-width:1200px;margin:0 auto;padding:96px 26px}
+  .shot-row{display:grid;grid-template-columns:1fr;gap:44px;align-items:center;margin-bottom:70px}
+  .shot-row:last-child{margin-bottom:0}
+  @media(min-width:900px){.shot-row{grid-template-columns:1fr 1fr;gap:56px}.shot-row.flip .shot-copy{order:2}.shot-row.flip .shot-frame{order:1}}
+  .shot-copy .tag{display:inline-block;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-dk);font-weight:600;background:var(--cream-2);padding:6px 14px;border-radius:999px;margin-bottom:14px}
+  .shot-copy h3{font-size:clamp(24px,3vw,32px);color:var(--maroon);margin-bottom:12px}
+  .shot-copy h3 .it{font-style:italic;font-weight:400;color:var(--gold-dk)}
+  .shot-copy p{font-size:15.5px;color:var(--ink-soft);margin-bottom:16px}
+  .shot-copy ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+  .shot-copy li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--ink)}
+  .shot-copy li svg{width:18px;height:18px;color:var(--gold-dk);flex-shrink:0;margin-top:2px}
+
+  /* browser frame */
+  .shot-frame{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 26px 60px rgba(138,32,32,.13)}
+  .shot-bar{background:var(--cream-2);padding:11px 14px;display:flex;align-items:center;gap:7px;border-bottom:1px solid var(--line)}
+  .shot-bar .dot{width:10px;height:10px;border-radius:50%}
+  .shot-bar .url{margin-left:10px;background:#fff;border:1px solid var(--line);border-radius:6px;font-size:11px;color:var(--ink-soft);padding:4px 12px;flex:1;max-width:260px}
+  .ui{padding:0;font-size:12px}
+
+  /* admin ui */
+  .admin{display:flex;min-height:290px}
+  .admin .side{width:150px;background:var(--maroon-deep);padding:16px 12px;flex-shrink:0}
+  .admin .side .brand2{color:var(--gold-lt);font-family:'Fraunces',serif;font-size:13px;font-weight:600;margin-bottom:16px;padding:0 6px}
+  .admin .side .mi{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.7);font-size:11.5px;padding:8px 8px;border-radius:7px;margin-bottom:2px}
+  .admin .side .mi.on{background:rgba(255,255,255,.12);color:#fff}
+  .admin .side .mi .d{width:14px;height:14px;border-radius:4px;background:currentColor;opacity:.5}
+  .admin .main{flex:1;padding:18px;background:var(--cream)}
+  .admin .main h4{font-family:'Fraunces',serif;color:var(--maroon);font-size:16px;margin-bottom:14px}
+  .admin .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:14px}
+  .admin .kpi{background:#fff;border:1px solid var(--line);border-radius:9px;padding:11px}
+  .admin .kpi .k{font-size:9px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em}
+  .admin .kpi .v{font-family:'Fraunces',serif;font-weight:700;font-size:19px;color:var(--maroon);margin-top:3px}
+  .admin .rows{background:#fff;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+  .admin .r{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-bottom:1px solid var(--line);font-size:11px}
+  .admin .r:last-child{border-bottom:none}
+  .admin .r .nm{color:var(--ink);font-weight:500}
+  .admin .r .am{color:#2E7D32;font-weight:600}
+  .admin .r .pill{font-size:9px;background:#E8F0E5;color:#3B6B2E;padding:2px 8px;border-radius:999px}
+
+  /* donations ui */
+  .don{padding:20px;background:var(--cream);min-height:290px}
+  .don .h{text-align:center;margin-bottom:16px}
+  .don .h .t{font-family:'Fraunces',serif;color:var(--maroon);font-size:17px}
+  .don .h .s{font-size:10.5px;color:var(--ink-soft);margin-top:3px}
+  .don .amts{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:12px}
+  .don .amt{background:#fff;border:1px solid var(--line);border-radius:8px;text-align:center;padding:12px 4px;font-family:'Fraunces',serif;font-weight:600;color:var(--maroon);font-size:14px}
+  .don .amt.sel{background:var(--maroon);color:#fff;border-color:var(--maroon)}
+  .don .fund{background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:11px;color:var(--ink-soft);margin-bottom:9px;display:flex;justify-content:space-between;align-items:center}
+  .don .fund .chev{color:var(--gold-dk)}
+  .don .field{background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:11px;color:var(--ink-soft);margin-bottom:9px}
+  .don .give{background:var(--maroon);color:#fff;text-align:center;padding:12px;border-radius:8px;font-weight:600;font-size:12.5px;margin-top:3px}
+
+  /* booking ui */
+  .book{padding:20px;background:var(--cream);min-height:290px}
+  .book .h{text-align:center;margin-bottom:14px}
+  .book .h .t{font-family:'Fraunces',serif;color:var(--maroon);font-size:17px}
+  .book .h .s{font-size:10.5px;color:var(--ink-soft);margin-top:3px}
+  .book .opt{background:#fff;border:1px solid var(--line);border-radius:8px;padding:11px 12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+  .book .opt.sel{border-color:var(--gold);background:#FFFDF5}
+  .book .opt .nm{font-size:12px;color:var(--ink);font-weight:500}
+  .book .opt .pr{font-size:11px;color:var(--gold-dk);font-weight:600}
+  .book .opt .rad{width:15px;height:15px;border-radius:50%;border:2px solid var(--line)}
+  .book .opt.sel .rad{border-color:var(--gold);background:var(--gold);box-shadow:inset 0 0 0 3px #fff}
+  .book .two{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+  .book .field{background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 11px;font-size:10.5px;color:var(--ink-soft)}
+  .book .cta{background:var(--maroon);color:#fff;text-align:center;padding:12px;border-radius:8px;font-weight:600;font-size:12.5px;margin-top:3px}
+
+  /* about founder */
+  .about{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .about-inner{max-width:1080px;margin:0 auto;padding:96px 26px;display:grid;grid-template-columns:1fr;gap:48px;align-items:center}
+  @media(min-width:860px){.about-inner{grid-template-columns:0.8fr 1.2fr;gap:64px}}
+  .about-photo{position:relative}
+  .about-photo .frame{aspect-ratio:4/5;border-radius:18px;overflow:hidden;background:linear-gradient(150deg,var(--maroon),var(--maroon-deep));display:grid;place-items:center;position:relative;box-shadow:0 24px 56px rgba(138,32,32,.16)}
+  .about-photo .frame::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 70% 25%,rgba(228,200,126,.28),transparent 55%)}
+  .about-photo .frame .ph{position:relative;z-index:2;text-align:center;color:var(--gold-lt)}
+  .about-photo .frame .ph .om{font-family:'Fraunces',serif;font-size:80px;line-height:1}
+  .about-photo .frame .ph .cap{font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-top:12px;color:rgba(255,255,255,.6)}
+  .about-photo .badge{position:absolute;bottom:-18px;right:-8px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 16px;box-shadow:0 12px 30px rgba(138,32,32,.14);text-align:center}
+  @media(min-width:860px){.about-photo .badge{right:-24px}}
+  .about-photo .badge .b1{font-family:'Fraunces',serif;font-weight:700;color:var(--maroon);font-size:15px}
+  .about-photo .badge .b2{font-size:10.5px;color:var(--ink-soft);letter-spacing:.04em}
+  .about-copy .eyebrow{text-align:left;margin:0 0 12px}
+  .about-copy h2{font-size:clamp(28px,4vw,40px);color:var(--maroon);margin-bottom:8px;line-height:1.12}
+  .about-copy .role{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-dk);font-weight:600;margin-bottom:22px}
+  .about-copy p{font-size:16px;color:var(--ink-soft);margin-bottom:16px;line-height:1.75}
+  .about-copy p .hl{color:var(--maroon);font-weight:600}
+  .about-copy .sign{font-family:'Fraunces',serif;font-style:italic;font-size:22px;color:var(--maroon);margin-top:8px}
+  .about-copy .sign-sub{font-size:12.5px;color:var(--ink-soft);letter-spacing:.03em;margin-top:2px}
+
+  /* why — light split */
+  .why{background:var(--cream-2)}
+  .why-wrap{max-width:1200px;margin:0 auto;padding:96px 26px;display:grid;grid-template-columns:1fr;gap:50px}
+  @media(min-width:920px){.why-wrap{grid-template-columns:0.9fr 1.1fr;gap:66px;align-items:start}}
+  .why .eyebrow{text-align:left;margin:0 0 12px}
+  .why h2{color:var(--maroon);font-size:clamp(30px,4.3vw,42px);margin-bottom:18px}
+  .why h2 .it{font-style:italic;font-weight:400;color:var(--gold-dk)}
+  .why .lead-col p{color:var(--ink-soft);font-size:16.5px}
+  .why-list{display:flex;flex-direction:column}
+  .wl{display:flex;gap:20px;padding:24px 0;border-top:1px solid var(--line)}
+  .wl:last-child{border-bottom:1px solid var(--line)}
+  .wl .idx{font-family:'Fraunces',serif;font-size:15px;color:var(--gold-dk);flex-shrink:0;padding-top:3px;width:26px}
+  .wl h4{font-family:'Fraunces',serif;font-size:20px;color:var(--maroon);margin-bottom:6px;font-weight:600}
+  .wl p{font-size:14.5px;color:var(--ink-soft);margin:0}
+
+  /* work */
+  .work{display:grid;grid-template-columns:1fr;gap:26px}
+  @media(min-width:760px){.work{grid-template-columns:repeat(3,1fr)}}
+  .wcard{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:transform .28s,box-shadow .28s}
+  .wcard:hover{transform:translateY(-6px);box-shadow:0 22px 50px rgba(138,32,32,.12)}
+  .wcard .top{height:140px;background:linear-gradient(145deg,var(--maroon),var(--maroon-deep));display:grid;place-items:center;position:relative;overflow:hidden}
+  .wcard .top::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 72% 22%,rgba(228,200,126,.32),transparent 55%)}
+  .wcard .top .sym{font-family:'Fraunces',serif;font-size:52px;color:var(--gold-lt);position:relative;z-index:2}
+  .wcard .body{padding:24px}
+  .wcard h3{font-size:19px;color:var(--ink);margin-bottom:5px}
+  .wcard .loc{font-size:11.5px;color:var(--gold-dk);letter-spacing:.13em;text-transform:uppercase;font-weight:600;margin-bottom:12px}
+  .wcard p{font-size:14px;color:var(--ink-soft)}
+
+  /* process */
+  .proc{background:var(--cream-3)}
+  .proc-inner{max-width:820px;margin:0 auto;padding:96px 26px}
+  .timeline{position:relative;margin-top:18px}
+  .timeline::before{content:"";position:absolute;left:23px;top:10px;bottom:10px;width:2px;background:linear-gradient(180deg,var(--gold),var(--gold-lt))}
+  .tstep{position:relative;padding:0 0 42px 72px}
+  .tstep:last-child{padding-bottom:0}
+  .tstep .num{position:absolute;left:0;top:-4px;width:48px;height:48px;border-radius:50%;background:var(--maroon);color:var(--gold-lt);font-family:'Fraunces',serif;font-weight:700;font-size:19px;display:grid;place-items:center;border:3px solid var(--cream-3);z-index:2}
+  .tstep h3{font-size:22px;color:var(--maroon);margin-bottom:7px}
+  .tstep p{font-size:15px;color:var(--ink-soft);max-width:560px}
+
+  /* contact */
+  .contact{background:var(--maroon);color:#fff;position:relative;overflow:hidden}
+  .contact::before{content:"";position:absolute;top:-40%;right:-10%;width:640px;height:640px;background:radial-gradient(circle,rgba(228,200,126,.16),transparent 60%)}
+  .contact-inner{position:relative;z-index:2;max-width:720px;margin:0 auto;padding:92px 26px;text-align:center}
+  .contact h2{font-size:clamp(30px,4.8vw,48px);color:#fff;margin-bottom:16px}
+  .contact h2 .it{font-style:italic;font-weight:400;color:var(--gold-lt)}
+  .contact p{color:rgba(255,255,255,.82);font-size:17px;max-width:500px;margin:0 auto 34px}
+  .contact .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .btn-gold{background:var(--gold);color:var(--maroon-deep);padding:16px 34px;border-radius:999px;font-weight:600;font-size:15px;transition:transform .2s}
+  .btn-gold:hover{transform:translateY(-3px)}
+  .btn-white{background:transparent;border:1.5px solid rgba(255,255,255,.45);color:#fff;padding:16px 30px;border-radius:999px;font-weight:600;font-size:15px;transition:background .2s}
+  .btn-white:hover{background:rgba(255,255,255,.12)}
+
+  /* footer */
+  footer{background:var(--maroon-deep);color:rgba(255,255,255,.72);font-size:14px}
+  .foot{max-width:1200px;margin:0 auto;padding:54px 26px 26px;display:grid;grid-template-columns:1fr;gap:30px}
+  @media(min-width:720px){.foot{grid-template-columns:1.6fr 1fr 1fr}}
+  .foot .fname{font-family:'Fraunces',serif;color:var(--gold-lt);font-size:19px;margin-bottom:10px}
+  .foot p{margin-bottom:6px}
+  .foot h4{font-family:'Fraunces',serif;color:#fff;font-size:15px;margin-bottom:12px;font-weight:600}
+  .foot a{transition:color .2s}.foot a:hover{color:var(--gold-lt)}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.12);text-align:center;padding:17px;font-size:12.5px;color:rgba(255,255,255,.5)}
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="nav">
+    <div class="brand">
+      <div class="mark">ॐ</div>
+      <div><div class="name">Samruddhi</div><div class="sub">Pooja Services</div></div>
+    </div>
+    <nav class="navlinks">
+      <a href="#build">What We Build</a>
+      <a href="#showcase">See It</a>
+      <a href="#about">About</a>
+      <a href="#why">Why Us</a>
+      <a href="#work">Our Work</a>
+      <a href="#process">Process</a>
+    </nav>
+    <a href="#contact" class="navcta">Get a Quote</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="kicker reveal in">For Hindu temples across the world</div>
+    <h1 class="reveal in d1">A digital home worthy of <span class="it">your temple</span></h1>
+    <p class="lead reveal in d2">Complete websites and mobile apps — donations, pooja bookings, events, and devotee accounts — crafted by a priest who lives temple life, not just codes it.</p>
+    <div class="btns reveal in d3">
+      <a href="#contact" class="btn-primary">Start your temple site</a>
+      <a href="#work" class="btn-ghost">See our work</a>
+    </div>
+    <div class="regions reveal in d3">
+      <span><i></i> United States</span>
+      <span><i></i> Europe</span>
+      <span><i></i> Australia</span>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-inner">
+    <div class="stat reveal"><div class="n" data-count="6">6+</div><div class="lbl">Temples Served</div></div>
+    <div class="stat reveal d1"><div class="n" data-count="3">3</div><div class="lbl">Continents</div></div>
+    <div class="stat reveal d2"><div class="n">100%</div><div class="lbl">Temple Ownership</div></div>
+    <div class="stat reveal d3"><div class="n" data-count="24">24/7</div><div class="lbl">Devotee Access</div></div>
+  </div>
+</div>
+
+<!-- BUILD -->
+<section id="build">
+  <div class="motif reveal"><span class="l"></span><span class="dot">✦</span><span class="l r"></span></div>
+  <div class="eyebrow reveal">Everything in one place</div>
+  <h2 class="sec-title reveal">What we <span class="it">build</span></h2>
+  <p class="sec-note reveal">Not just a website — the complete digital system your devotees and administrators rely on every day.</p>
+  <div class="grid3">
+    <div class="feature reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></div><h3>Online Donations</h3><p>Secure one-time and recurring giving with automatic tax receipts. Stripe or Square.</p></div>
+    <div class="feature reveal d1"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 21l-4.9-2.8.9-5.5-4-3.9 5.5-.8z"/></svg></div><h3>Pooja Booking</h3><p>Devotees request ceremonies at the temple or home. Priests confirm and collect payment.</p></div>
+    <div class="feature reveal d2"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg></div><h3>Events &amp; Registration</h3><p>Publish festivals and recurring poojas, take registrations, manage attendance easily.</p></div>
+    <div class="feature reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></div><h3>Devotee Accounts</h3><p>Personal dashboards where devotees track donations, bookings, and family details.</p></div>
+    <div class="feature reveal d1"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg></div><h3>Mobile App</h3><p>An installable temple app linked to your site — darshan, events, and giving on the go.</p></div>
+    <div class="feature reveal d2"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><h3>Easy Admin Dashboard</h3><p>Create events, manage donations, confirm bookings yourself — no coding, no confusion.</p></div>
+  </div>
+</section>
+
+<!-- SHOWCASE -->
+<div class="showcase" id="showcase">
+  <div class="showcase-inner">
+    <div class="motif reveal"><span class="l"></span><span class="dot">✦</span><span class="l r"></span></div>
+    <div class="eyebrow reveal">See it in action</div>
+    <h2 class="sec-title reveal">A real look <span class="it">inside</span></h2>
+    <p class="sec-note reveal">The same tools your admins and devotees use every day — clean, simple, and built for temple life.</p>
+
+    <!-- Admin dashboard -->
+    <div class="shot-row">
+      <div class="shot-copy reveal">
+        <span class="tag">Admin Dashboard</span>
+        <h3>Run your temple <span class="it">without code</span></h3>
+        <p>A clean dashboard where your team manages everything — see donations at a glance, confirm bookings, and create events in a few clicks.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg> Live donation and booking totals</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg> Create and edit events yourself</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg> Devotee records, secure and private</li>
+        </ul>
+      </div>
+      <div class="shot-frame reveal d1">
+        <div class="shot-bar"><span class="dot" style="background:#F5827A"></span><span class="dot" style="background:#F5C24E"></span><span class="dot" style="background:#6FC96F"></span><span class="url">temple.org/admin</span></div>
+        <div class="ui">
+          <div class="admin">
+            <div class="side">
+              <div class="brand2">॥ Admin</div>
+              <div class="mi on"><span class="d"></span> Dashboard</div>
+              <div class="mi"><span class="d"></span> Donations</div>
+              <div class="mi"><span class="d"></span> Bookings</div>
+              <div class="mi"><span class="d"></span> Events</div>
+              <div class="mi"><span class="d"></span> Devotees</div>
+            </div>
+            <div class="main">
+              <h4>Dashboard</h4>
+              <div class="cards">
+                <div class="kpi"><div class="k">This Month</div><div class="v">$4,820</div></div>
+                <div class="kpi"><div class="k">Bookings</div><div class="v">17</div></div>
+                <div class="kpi"><div class="k">Devotees</div><div class="v">284</div></div>
+              </div>
+              <div class="rows">
+                <div class="r"><span class="nm">Deepa Telagam</span><span class="am">$127</span><span class="pill">completed</span></div>
+                <div class="r"><span class="nm">Bharath Marur</span><span class="am">$101</span><span class="pill">completed</span></div>
+                <div class="r"><span class="nm">Sandeep B.</span><span class="am">$251</span><span class="pill">completed</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Donations -->
+    <div class="shot-row flip">
+      <div class="shot-copy reveal">
+        <span class="tag">Donations</span>
+        <h3>Giving made <span class="it">effortless</span></h3>
+        <p>Devotees choose an amount, pick a fund, and give securely in seconds. One-time or recurring, with automatic tax receipts.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg> Secure card, Apple Pay &amp; Google Pay</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg> Fund-specific and monthly giving</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg> Automatic 501(c)(3) receipts</li>
+        </ul>
+      </div>
+      <div class="shot-frame reveal d1">
+        <div class="shot-bar"><span class="dot" style="background:#F5827A"></span><span class="dot" style="background:#F5C24E"></span><span class="dot" style="background:#6FC96F"></span><span class="url">temple.org/donate</span></div>
+        <div class="ui">
+          <div class="don">
+            <div class="h"><div class="t">Make a Donation</div><div class="s">Your generosity sustains the temple</div></div>
+            <div class="amts">
+              <div class="amt">$51</div>
+              <div class="amt sel">$101</div>
+              <div class="amt">$251</div>
+              <div class="amt">$501</div>
+            </div>
+            <div class="fund"><span>Fund — General Donation</span><span class="chev">▾</span></div>
+            <div class="field">Full name</div>
+            <div class="field">Email address</div>
+            <div class="give">Donate $101 securely</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Booking -->
+    <div class="shot-row">
+      <div class="shot-copy reveal">
+        <span class="tag">Pooja Booking</span>
+        <h3>Book a pooja in <span class="it">a minute</span></h3>
+        <p>Devotees request a ceremony at the temple or their home, pick a date, and pay — the priest sees it instantly in the dashboard.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg> Temple or at-home ceremonies</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg> Date, time &amp; sankalpam details</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg> Priest confirms and collects payment</li>
+        </ul>
+      </div>
+      <div class="shot-frame reveal d1">
+        <div class="shot-bar"><span class="dot" style="background:#F5827A"></span><span class="dot" style="background:#F5C24E"></span><span class="dot" style="background:#6FC96F"></span><span class="url">temple.org/book-pooja</span></div>
+        <div class="ui">
+          <div class="book">
+            <div class="h"><div class="t">Book a Pooja</div><div class="s">Request a ceremony at temple or home</div></div>
+            <div class="opt sel"><span class="nm">Ganesha Homam</span><span style="display:flex;align-items:center;gap:10px"><span class="pr">$201</span><span class="rad"></span></span></div>
+            <div class="opt"><span class="nm">Satyanarayana Pooja</span><span style="display:flex;align-items:center;gap:10px"><span class="pr">$151</span><span class="rad"></span></span></div>
+            <div class="two">
+              <div class="field">📅 Aug 13, 2026</div>
+              <div class="field">🕘 8:00 AM</div>
+            </div>
+            <div class="field" style="margin-bottom:9px">Location — At the Temple</div>
+            <div class="cta">Continue to payment</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT FOUNDER -->
+<div class="about" id="about">
+  <div class="about-inner">
+    <div class="about-photo reveal">
+      <div class="frame">
+        <img src="/rajasekhar.jpg" alt="Rajasekhar Sharma Chintapalli — Hindu priest and founder of Samruddhi Pooja Services" style="width:100%;height:100%;object-fit:cover;position:relative;z-index:2" />
+      </div>
+    </div>
+    <div class="about-copy">
+      <div class="eyebrow reveal">Meet the founder</div>
+      <h2 class="reveal">Rajasekhar Sharma Chintapalli</h2>
+      <div class="role reveal">Hindu Priest · Founder of Samruddhi</div>
+      <p class="reveal">I'm a practicing Hindu priest — not a typical web agency. For years, I watched temples struggle with web designers who <span class="hl">didn't understand our needs and wouldn't answer when we needed them most</span>. A festival announcement that couldn't wait. A donation page broken on the busiest day of the year.</p>
+      <p class="reveal d1">So I decided to take a chance. I started learning — and with the help of modern AI tools, I built our own temple's website exactly the way a temple should have it. It worked. Devotees noticed. Other temples started asking.</p>
+      <p class="reveal d2">Now I build for temples across the country. Because I stand in the temple every week, <span class="hl">I understand what a temple actually needs</span> — and I design every site around that, not around a template. When you call, I answer.</p>
+      <div class="sign reveal d3">— Rajasekhar</div>
+      <div class="sign-sub reveal d3">Founder, Samruddhi Pooja Services</div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY -->
+<div class="why" id="why">
+  <div class="why-wrap">
+    <div class="lead-col reveal">
+      <div class="eyebrow">Why Samruddhi</div>
+      <h2>Built by someone who <span class="it">understands temples</span></h2>
+      <p>We're not a generic web agency. As a practicing priest and temple administrator, we know how poojas, donations, and festivals truly work — and we build tools that fit temple life, not the other way around.</p>
+    </div>
+    <div class="why-list">
+      <div class="wl reveal"><div class="idx">01</div><div><h4>Priest-led, temple-first</h4><p>Every feature is shaped by real temple needs — sankalpam details, gotra, nakshatra, and more.</p></div></div>
+      <div class="wl reveal d1"><div class="idx">02</div><div><h4>Secure &amp; private by design</h4><p>Devotee data — names, emails, donations — stays protected and visible only to authorized admins.</p></div></div>
+      <div class="wl reveal d2"><div class="idx">03</div><div><h4>You own everything</h4><p>Your website, data, and accounts are yours. No platform lock-in, no hidden control.</p></div></div>
+      <div class="wl reveal d3"><div class="idx">04</div><div><h4>Three continents, one craft</h4><p>Serving Hindu temple communities across the US, Europe, and Australia.</p></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- WORK -->
+<section id="work">
+  <div class="motif reveal"><span class="l"></span><span class="dot">✦</span><span class="l r"></span></div>
+  <div class="eyebrow reveal">Temples we serve</div>
+  <h2 class="sec-title reveal">Our <span class="it">work</span></h2>
+  <p class="sec-note reveal">Real temple platforms, live and serving devotees every day.</p>
+  <div class="work">
+    <div class="wcard reveal"><div class="top"><span class="sym">॥</span></div><div class="body"><h3>Sri Hanuman Mandir</h3><div class="loc">Tracy, California</div><p>Full temple platform — donations, pooja bookings, devotee dashboard, and mobile app.</p></div></div>
+    <div class="wcard reveal d1"><div class="top"><span class="sym">ॐ</span></div><div class="body"><h3>Sri Varada Venkateshwara</h3><div class="loc">Barto, Pennsylvania</div><p>Donations, events, and secure devotee records with a simple admin dashboard.</p></div></div>
+    <div class="wcard reveal d2"><div class="top"><span class="sym">卐</span></div><div class="body"><h3>Sri Bhaktha Hanuman</h3><div class="loc">Fishers, Indiana</div><p>Custom temple site with online giving, bookings, events, and a devotee app.</p></div></div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<div class="proc" id="process">
+  <div class="proc-inner">
+    <div class="motif reveal"><span class="l"></span><span class="dot">✦</span><span class="l r"></span></div>
+    <div class="eyebrow reveal">Simple &amp; clear</div>
+    <h2 class="sec-title reveal">How it <span class="it">works</span></h2>
+    <p class="sec-note reveal">From first conversation to launch — and the temple owns it all at the end.</p>
+    <div class="timeline">
+      <div class="tstep reveal"><div class="num">1</div><h3>Consult</h3><p>We learn about your temple, your services, and what your devotees need. You get a clear proposal and quote — consultations are always free.</p></div>
+      <div class="tstep reveal"><div class="num">2</div><h3>Build</h3><p>We design and build your custom website and app in your temple's own identity, keeping you updated at every step.</p></div>
+      <div class="tstep reveal"><div class="num">3</div><h3>Launch &amp; own</h3><p>We launch your site, hand over full ownership, and train your team to manage it — with support after launch.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="motif reveal"><span class="l"></span><span class="dot" style="color:var(--gold-lt)">✦</span><span class="l r"></span></div>
+    <div class="eyebrow reveal" style="color:var(--gold-lt)">Let's talk</div>
+    <h2 class="reveal">Ready to build your temple's <span class="it">home online?</span></h2>
+    <p class="reveal">Tell us about your temple and we'll show you what's possible.</p>
+    <div class="btns reveal">
+      <a href="mailto:samruddhipoojaservices@gmail.com?subject=Temple%20Website%20Enquiry" class="btn-gold">Email us</a>
+      <a href="#" class="btn-white">Request a quote</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="foot">
+    <div><div class="fname">Samruddhi Pooja Services</div><p style="color:rgba(255,255,255,.62);max-width:300px">Websites and mobile apps for Hindu temples across the US, Europe, and Australia.</p></div>
+    <div><h4>Services</h4><p><a href="#build">Temple Websites</a></p><p><a href="#build">Mobile Apps</a></p><p><a href="#build">Donations &amp; Bookings</a></p><p><a href="#build">Admin Dashboards</a></p></div>
+    <div><h4>Get in Touch</h4><p><a href="mailto:samruddhipoojaservices@gmail.com">samruddhipoojaservices@gmail.com</a></p><p style="margin-top:8px;color:rgba(255,255,255,.55)">Serving temples worldwide</p></div>
+  </div>
+  <div class="foot-bottom">© 2026 Samruddhi Pooja Services · Temple Websites &amp; Digital Services</div>
+</footer>
+
+<script>
+  const hdr=document.getElementById('hdr');
+  addEventListener('scroll',()=>{hdr.classList.toggle('scrolled',scrollY>40)});
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  document.querySelectorAll('.reveal:not(.in)').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
